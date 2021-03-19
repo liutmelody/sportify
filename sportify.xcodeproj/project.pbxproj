@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,12 @@
 		1DF0881925FFC468000261C3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0881825FFC468000261C3 /* Preview Assets.xcassets */; };
 		1DF0882425FFC468000261C3 /* sportifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0882325FFC468000261C3 /* sportifyTests.swift */; };
 		1DF0882F25FFC469000261C3 /* sportifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0882E25FFC469000261C3 /* sportifyUITests.swift */; };
+		313DC68D2602A59500581CAB /* ContactDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313DC68C2602A59500581CAB /* ContactDetail.swift */; };
+		31726C512603F0E700CCF1B0 /* MapViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31726C502603F0E700CCF1B0 /* MapViewSwift.swift */; };
+		31726C9226041B5600CCF1B0 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 31726C9126041B5600CCF1B0 /* PopupView */; };
+		31726C9726041D7100CCF1B0 /* PopUpExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31726C9626041D7100CCF1B0 /* PopUpExampleView.swift */; };
+		31726C9F26043F5300CCF1B0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31726C9E26043F5200CCF1B0 /* HomeView.swift */; };
+		31726CA426043F9300CCF1B0 /* CreateNewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31726CA326043F9300CCF1B0 /* CreateNewGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +51,11 @@
 		1DF0882A25FFC469000261C3 /* sportifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sportifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF0882E25FFC469000261C3 /* sportifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sportifyUITests.swift; sourceTree = "<group>"; };
 		1DF0883025FFC469000261C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		313DC68C2602A59500581CAB /* ContactDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetail.swift; sourceTree = "<group>"; };
+		31726C502603F0E700CCF1B0 /* MapViewSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewSwift.swift; sourceTree = "<group>"; };
+		31726C9626041D7100CCF1B0 /* PopUpExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpExampleView.swift; sourceTree = "<group>"; };
+		31726C9E26043F5200CCF1B0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		31726CA326043F9300CCF1B0 /* CreateNewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31726C9226041B5600CCF1B0 /* PopupView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +107,12 @@
 		1DF0881025FFC468000261C3 /* sportify */ = {
 			isa = PBXGroup;
 			children = (
+				31726C9626041D7100CCF1B0 /* PopUpExampleView.swift */,
 				1DF0881125FFC468000261C3 /* sportifyApp.swift */,
+				31726CA326043F9300CCF1B0 /* CreateNewGameView.swift */,
+				31726C502603F0E700CCF1B0 /* MapViewSwift.swift */,
+				31726C9E26043F5200CCF1B0 /* HomeView.swift */,
+				313DC68C2602A59500581CAB /* ContactDetail.swift */,
 				1DF0881325FFC468000261C3 /* ContentView.swift */,
 				1DF0881525FFC468000261C3 /* Assets.xcassets */,
 				1DF0881A25FFC468000261C3 /* Info.plist */,
@@ -146,6 +163,9 @@
 			dependencies = (
 			);
 			name = sportify;
+			packageProductDependencies = (
+				31726C9126041B5600CCF1B0 /* PopupView */,
+			);
 			productName = sportify;
 			productReference = 1DF0880E25FFC468000261C3 /* sportify.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +237,9 @@
 				Base,
 			);
 			mainGroup = 1DF0880525FFC467000261C3;
+			packageReferences = (
+				31726C9026041B5600CCF1B0 /* XCRemoteSwiftPackageReference "PopupView" */,
+			);
 			productRefGroup = 1DF0880F25FFC468000261C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,8 +282,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31726C512603F0E700CCF1B0 /* MapViewSwift.swift in Sources */,
 				1DF0881425FFC468000261C3 /* ContentView.swift in Sources */,
+				313DC68D2602A59500581CAB /* ContactDetail.swift in Sources */,
 				1DF0881225FFC468000261C3 /* sportifyApp.swift in Sources */,
+				31726C9F26043F5300CCF1B0 /* HomeView.swift in Sources */,
+				31726CA426043F9300CCF1B0 /* CreateNewGameView.swift in Sources */,
+				31726C9726041D7100CCF1B0 /* PopUpExampleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +602,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		31726C9026041B5600CCF1B0 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		31726C9126041B5600CCF1B0 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31726C9026041B5600CCF1B0 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1DF0880625FFC467000261C3 /* Project object */;
 }
