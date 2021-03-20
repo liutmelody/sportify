@@ -43,7 +43,7 @@ struct JoinGameButton : View {
     }
 }
 
-struct BottomSheetView<Content: View>: View {
+struct HomeView<Content: View>: View {
     @Binding var isOpen: Bool
     @State var sportifyimage = "CheeseBurger"
     @State var showingPopup = false
@@ -93,13 +93,11 @@ struct BottomSheetView<Content: View>: View {
                 Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.35.52 PM")).resizable().aspectRatio(contentMode: .fit)
                 }
 
-                ScrollView{
-                JoinGameButton(showing: $showingPopup, hideAll: hideAll)
-                Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.38.08 PM")).resizable().aspectRatio(contentMode: .fit)
-                    Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.38.08 PM")).resizable().aspectRatio(contentMode: .fit)
-                    Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.38.08 PM")).resizable().aspectRatio(contentMode: .fit)
-                    Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.38.08 PM")).resizable().aspectRatio(contentMode: .fit)
-                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+//                ScrollView{
+//                JoinGameButton(showing: $showingPopup, hideAll: hideAll)
+                GameEventElementList()
+                //Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.38.08 PM")).resizable().aspectRatio(contentMode: .fit)
+//                }.frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
             .background(Color.white)
@@ -122,7 +120,7 @@ struct BottomSheetView<Content: View>: View {
             }
         }
             
-    } .edgesIgnoringSafeArea(.all).popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
+    }.edgesIgnoringSafeArea(.all).popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
             createPopup()}
         
     }
@@ -152,7 +150,7 @@ struct BottomSheetView<Content: View>: View {
     
 }
 
-struct BottomSheetView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         BottomSheetView(isOpen: .constant(false), maxHeight: 1200) {
             Rectangle().fill(Color.white)

@@ -57,7 +57,6 @@ struct PopUpExampleView : View {
         .popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
             createPopup()}
 
-
     }
 
     func createPopup() -> some View {
