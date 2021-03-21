@@ -12,7 +12,7 @@ import CoreLocation
 
 //TODO: change to class 
 
-struct GameEvent: Codable{ // may need Hashable, Codable, Identifiable
+struct GameEvent { // may need Hashable, Codable, Identifiable
 
     let id = UUID()
     var time: Date
