@@ -10,9 +10,9 @@ import SwiftUI
 import Firebase
 //import CodableFirebase
 
-struct Player: Hashable, Codable, Identifiable {
+struct Player: Hashable, Codable {
     
-    @DocumentID var id: String?
+//    @DocumentID var id: String?
     
 //    let id = UUID()
     var name: String
