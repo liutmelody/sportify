@@ -69,9 +69,9 @@ struct GameEventElement: View {
         .frame(width: 350, height: 200)
         .background(Color(.white))
         .cornerRadius(10.0)
-        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.09), radius: 10.0).frame(width: 350, height: 200)
-        .edgesIgnoringSafeArea(.all).popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
-                createPopup()}
+        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.30), radius: 1).frame(width: 350, height: 200)
+//        .edgesIgnoringSafeArea(.all).popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
+//                createPopup()}
     }
     
     func createPopup() -> some View {
@@ -94,7 +94,7 @@ struct GameEventElement: View {
         .frame(width: 370, height: 350)
         .background(Color(.white))
         .cornerRadius(5.0)
-        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.20), radius: 50)
+        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.20), radius: 5)
     }
 
 }

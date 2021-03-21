@@ -7,10 +7,14 @@
 
 import Foundation
 import SwiftUI
+import Firebase
+//import CodableFirebase
 
-struct Player: Hashable, Codable {
+struct Player: Hashable, Codable, Identifiable {
     
-    let id = UUID()
+    @DocumentID var id: String?
+    
+//    let id = UUID()
     var name: String
     //var email: String
     var skillLevel: String

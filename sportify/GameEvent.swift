@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 import CoreLocation
 
+
 //TODO: change to class 
 
-struct GameEvent { // may need Hashable, Codable, Identifiable
+struct GameEvent: Codable{ // may need Hashable, Codable, Identifiable
 
     let id = UUID()
     var time: Date
@@ -22,8 +23,13 @@ struct GameEvent { // may need Hashable, Codable, Identifiable
     @State var players = [Player]()
 
     //@State var isAttending: Bool
-    @State var playerList = [String]() 
-
+    @State var playerList = [String]()
+    
+//    init(time: Date, court: String, gameType: String){
+//        self.time = time
+//        self.court = court
+//        self.gameType = gameType
+//    }
     
 
 }
