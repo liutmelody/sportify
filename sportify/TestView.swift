@@ -57,7 +57,9 @@ struct TestView: View {
                         .offset(x: 15)
                     
                     Spacer()
-                    GridViewHeader()
+                    VStack {
+                        GridViewHeader()
+                    }
                     ScrollView{
                 GameEventElementList()
                     }

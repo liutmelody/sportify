@@ -8,11 +8,14 @@
 import Foundation
 import SwiftUI
 import Firebase
-//import CodableFirebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
-struct Player: Hashable, Codable {
+struct Player: Hashable, Codable, Identifiable {
+//struct Player: Hashable, Identifiable {
     
-//    @DocumentID var id: String?
+    @DocumentID var id: String?
+//    var id: String = UUID().uuidString
     
 //    let id = UUID()
     var name: String
@@ -20,6 +23,8 @@ struct Player: Hashable, Codable {
     var skillLevel: String
     //var neighbourhood: String //TODO
     var gender: String //TODO
+    
+    //@ServerTimestamp var createdTime: Timestamp?
     //var availability: list of strings? TODO
     
     //profile picture
@@ -27,5 +32,15 @@ struct Player: Hashable, Codable {
 //    var image: Image {
 //        Image(imageName)
 //    }
-
 }
+//
+//private var db = Firestore.firestore()
+//
+//func addPlayer(player: Player) {
+//  do {
+//    let _ = try db.collection("Players").addDocument(from: tennisPlayers)
+//  }
+//  catch {
+//    print(error)
+//  }
+//}

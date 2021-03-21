@@ -37,7 +37,7 @@ struct GridViewHeader : View {
         return VStack(alignment: .underlineLeading) {
             HStack {
                 Text("Today")
-                    .foregroundColor( .green)
+                    .foregroundColor(Color("SportifyGreen"))
                     .fontWeight(.bold)
                     .modifier(MagicStuff(activeIdx: $activeIdx, idx: 0))
                     .background(TextGeometry())
@@ -71,7 +71,7 @@ struct GridViewHeader : View {
                 .alignmentGuide(.underlineLeading) { d in d[.leading]  }
                 .frame(width: w[activeIdx],  height: 2)
                 .animation(.linear)
-                .foregroundColor(.green)
+                .foregroundColor(Color("SportifyGreen"))
 //            Text("Hi")
 //            Text("Hi")
 //            Text("Hi")

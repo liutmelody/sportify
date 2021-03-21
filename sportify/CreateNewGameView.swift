@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+//import FirebaseFirestoreCodable
 
 struct Contact {
     var name:String
