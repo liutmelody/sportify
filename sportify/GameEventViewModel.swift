@@ -56,7 +56,10 @@ class GameEventViewModel: ObservableObject {
 
         self.gameEvents = documents.map { queryDocumentSnapshot -> GameEvent in
           let data = queryDocumentSnapshot.data()
-          let startTime = data["startTime"] as? Date ?? Date()
+            guard let stamp = data["startTime"] as? Timestamp else{
+                return GameEvent(startTime: Date(), court: "", gameType:"")
+            }
+            let startTime = stamp.dateValue() //data["startTime"] as? Date ?? Date()
           let court = data["court"] as? String ?? ""
           let gameType = data["gameType"] as? String ?? ""
 

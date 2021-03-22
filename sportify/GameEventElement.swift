@@ -13,13 +13,11 @@ var tennisPlayers = [
 
 ]
 //var instead of 'let' because gameEvents needs to be mutable
-var gameEvents = [
-//    GameEvent(time: Date(timeIntervalSinceReferenceDate: -123456789.0), court: "Baby Point Club, Court 1",  gameType: "Singles", isAttending=false, playerList: ["olivia", "kennedy"]),
-//    GameEvent(time: Date(timeIntervalSinceReferenceDate: -123499789.0), court: "Baby Point Club, Court 2", gameType: "Doubles",isAttending=false, playerList: [])
-    GameEvent(time: Date(timeIntervalSinceReferenceDate: -123456789.0), court: "Baby Point Club, Court 1",  gameType: "Singles", players: [tennisPlayers[0], tennisPlayers[1]], playerList: ["olivia", "kennedy"]),
-    GameEvent(time: Date(timeIntervalSinceReferenceDate: -129456789.0), court: "Baby Point Club, Court 3",  gameType: "Mixed Doubles",  playerList: ["olivia", "alice"]),
-    GameEvent(time: Date(timeIntervalSinceReferenceDate: -123499789.0), court: "Baby Point Club, Court 2", gameType: "Doubles")
-]
+//var gameEvents = [
+//    GameEvent(startTime: Timestamp(date: Date()), court: "Baby Point Club, Court 1",  gameType: "Singles", players: [tennisPlayers[0], tennisPlayers[1]]),
+//    GameEvent(startTime: Date(timeIntervalSinceReferenceDate: -129456789.0), court: "Baby Point Club, Court 3",  gameType: "Mixed Doubles"),
+//    GameEvent(startTime: Date(timeIntervalSinceReferenceDate: -123499789.0), court: "Baby Point Club, Court 2", gameType: "Doubles")
+//]
 
 struct GameEventElement: View {
     var gameEvent: GameEvent
@@ -39,11 +37,12 @@ struct GameEventElement: View {
             if self.isAttending {
                 Text("You're going to this game!")//.padding().background(Color.green)
             }
-            Text(gameEvent.time, style: .time).fontWeight(.bold).font(.system(size: 14))
+            Text(gameEvent.startTime, style: .time).fontWeight(.bold).font(.system(size: 14))
             Text(gameEvent.gameType).fontWeight(.bold).font(.system(size: 18))
             Text(gameEvent.court).fontWeight(.bold).foregroundColor(.gray).font(.system(size: 14))
+            
             //TODO Text(gameEvent.time, style: .date)
-            Text(gameEvent.playerList.description).fontWeight(.light).font(.system(size: 12))
+//            Text(gameEvent.playerList.description).fontWeight(.light).font(.system(size: 12))
             Text(gameEvent.players.description).fontWeight(.light).font(.system(size: 12))
 
 //            if !gameEvent.playerList.isEmpty {
@@ -103,8 +102,8 @@ struct GameEventElement_Previews: PreviewProvider {
     static var previews: some View {
         VStack{
         Group {
-            GameEventElement(gameEvent: gameEvents[0])
-            GameEventElement(gameEvent: gameEvents[1])
+//            GameEventElement(gameEvent: gameEvents[0])
+//            GameEventElement(gameEvent: gameEvents[1])
         }
         }
         .previewLayout(.fixed(width: 300, height: 70))
