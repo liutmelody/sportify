@@ -54,7 +54,7 @@ struct GameDetailRow : View {
             Text(gamedetail.name).font(.body)
             Spacer()
             HStack {
-                Text(gamedetail.location).font(.subheadline).foregroundColor(Color.green)
+                Text(gamedetail.location).font(.subheadline).foregroundColor(Color("SportifyGreen"))
                 Spacer()
             }
 

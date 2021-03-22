@@ -10,13 +10,25 @@ import MapKit
 
 let courts = [
     TennisCourt(name: "Baby Point Club, Court 1", latitude: 43.65685680258352, longitude: -79.49430929323823),
-//    Place(name: "Tower of London", latitude: 51.508052, longitude: -0.076035),
-//    Place(name: "Big Ben", latitude: 51.500710, longitude: -0.124617)
 ]
+
+struct AddGameEventButton: View {
+  var action: () -> Void
+  var body: some View {
+    Button(action: { self.action() }) {
+        Image(uiImage: #imageLiteral(resourceName: "Create Game Button"))
+            .resizable()
+            .cornerRadius(13.0)
+            .frame(width: 118, height: 44)
+    }
+  }
+}
 
 struct TestView: View {
     @State private var bottomSheetShown = false
-//    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.65708680258352, longitude: -79.49430929323823), span: MKCoordinateSpan(latitudeDelta: 0.00125, longitudeDelta: 0.00125))
+    @State var showAddGameEvent = false
+    @ObservedObject var viewModel = GameEventViewModel()
+
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.65635680258352, longitude: -79.49430929323823), span: MKCoordinateSpan(latitudeDelta: 0.0013, longitudeDelta: 0.0013))
 
 
@@ -32,13 +44,6 @@ struct TestView: View {
             }
 
         }.ignoresSafeArea(.all)
-//        ZStack(alignment: .top){
-//            Color.clear
-//            Image(uiImage: #imageLiteral(resourceName: "Create Game Button")).resizable()
-//                .cornerRadius(10.0)
-//                .frame(width: 100, height: 40)
-//        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .edgesIgnoringSafeArea(.all)
 
         GeometryReader { geometry in
             BottomSheetView(
@@ -46,9 +51,6 @@ struct TestView: View {
                 maxHeight: geometry.size.height * 0.8
             ) {
                 VStack{
-//                NavigationLink(destination: CreateNewGameView()){
-//                Image(uiImage: #imageLiteral(resourceName: "Screen Shot 2021-03-18 at 6.35.52 PM")).resizable().aspectRatio(contentMode: .fit)
-//                }
                     Text("1. Baby Point Tennis Courts")
                         .baselineOffset(10.0)
                         .fontWeight(.bold)
@@ -61,15 +63,30 @@ struct TestView: View {
                         GridViewHeader()
                     }
                     ScrollView{
-                GameEventElementList()
+//                GameEventElementList()
+//                    }
+                    VStack{
+                          ForEach(viewModel.gameEvents.indices, id: \.self) { index in
+
+                            GameEventElement(gameEvent:  viewModel.gameEvents[index])
+                          }
+                        }
+                    .onAppear() {
+                        self.viewModel.fetchData()}
                     }
 
                 }
                 
             }
         }.edgesIgnoringSafeArea(.all)
+        }.navigationBarItems(leading: AddGameEventButton(){
+            self.showAddGameEvent.toggle()
+        })
+        .sheet(isPresented: self.$showAddGameEvent, content: {
+            AddNewGameView()
+        })
     }
-    }
+        
 }
 }
 struct TestView_Previews: PreviewProvider {

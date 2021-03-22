@@ -5,27 +5,22 @@
 //  Created by Melody Liu on 2021-03-19.
 //
 
-
-
-
 import SwiftUI
 
 struct GameEventElementList: View {
+    @ObservedObject var viewModel = GameEventViewModel()
     
     var body: some View {
-//        List(gameEvents, id: \.court) { gameEvent in
-//                GameEventElement(gameEvent: gameEvent)
-//                }
+
         VStack{
-        ForEach (gameEvents, id: \.id){ gameEvent in
-                GameEventElement(gameEvent: gameEvent)
-                }
-        }
-//        .frame(minWidth:0,
-//    maxWidth: .infinity,
-//    minHeight: 0,
-//    maxHeight: .infinity,
-//    alignment: .topLeading)
+              ForEach(viewModel.gameEvents.indices, id: \.self) { index in
+
+                GameEventElement(gameEvent:  viewModel.gameEvents[index])
+              }
+            }
+        .onAppear() {
+            self.viewModel.fetchData()}
+
     }
 }
 

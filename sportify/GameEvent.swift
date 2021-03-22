@@ -8,22 +8,25 @@
 import Foundation
 import SwiftUI
 import CoreLocation
-
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 //TODO: change to class 
 
-struct GameEvent { // may need Hashable, Codable, Identifiable
-
-    let id = UUID()
-    var time: Date
+struct GameEvent: Codable, Identifiable { 
+//    let id = UUID()
+    @DocumentID var id: String?
+    var startTime: Date
     var court: String //TODO -> convert to address type
     //TODO: need gender for game type?
     var gameType: String // singles, doubles, mixed doubles
     // TODO ////////////// var playerLevel: String 
-    @State var players = [Player]()
+    var players = [Player]()
+    
 
     //@State var isAttending: Bool
-    @State var playerList = [String]()
+//    @State var playerList = [String]()
     
 //    init(time: Date, court: String, gameType: String){
 //        self.time = time

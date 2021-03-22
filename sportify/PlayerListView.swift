@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct PlayerListView: View {
-  @ObservedObject var viewModel = PlayerViewModel() // (/1)
+  @ObservedObject var viewModel = PlayerViewModel()
+//    @Published var players = viewModel.$players
+
   
   var body: some View {
     NavigationView {
-        Text(viewModel.players.description)
-      List(viewModel.players) { player in // (2)
-        VStack(alignment: .leading) {
-          Text(player.name)
-            .font(.headline)
-          Text(player.gender)
-            .font(.subheadline)
-          Text(player.skillLevel)
-            .font(.subheadline)
+        //Text(viewModel.players.description)
+        VStack {
+            List{ForEach(viewModel.players.indices, id: \.self) { index in
+                VStack(alignment: .leading) {
+                  Text(viewModel.players[index].name)
+                    .font(.headline)
+                  Text(viewModel.players[index].gender)
+                    .font(.subheadline)
+                  Text(viewModel.players[index].skillLevel)
+                    .font(.subheadline)
+                }
+            }
+
+            }
         }
-      }
       .navigationBarTitle("Players")
       .onAppear() { // (3)
         self.viewModel.fetchData()
