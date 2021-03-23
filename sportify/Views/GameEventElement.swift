@@ -21,8 +21,10 @@ var tennisPlayers = [
 
 struct GameEventElement: View {
     var gameEvent: GameEvent
+    @ObservedObject var viewModel = GameEventViewModel()
     @State var isAttending : Bool = false
     @State var showingPopup = false
+
 
 //    @State var playerList  = []
 
@@ -39,17 +41,20 @@ struct GameEventElement: View {
             }
             Text(gameEvent.startTime, style: .time).fontWeight(.bold).font(.system(size: 14))
             Text(gameEvent.gameType).fontWeight(.bold).font(.system(size: 18))
-            Text(gameEvent.court).fontWeight(.bold).foregroundColor(.gray).font(.system(size: 14))
-            
-            //TODO Text(gameEvent.time, style: .date)
-//            Text(gameEvent.playerList.description).fontWeight(.light).font(.system(size: 12))
-            Text(gameEvent.players.description).fontWeight(.light).font(.system(size: 12))
+            Text(gameEvent.court).fontWeight(.bold).foregroundColor(.gray).font(.system(size: 16))
+            HStack{
+                Text("Players:").fontWeight(.bold).foregroundColor(.gray).font(.system(size: 13))
+            ForEach(gameEvent.players.indices, id: \.self) { i in
+                Text(
+                    String(describing: gameEvent.players[i].name)
+                        .dropFirst(2)
+                        .dropLast(2)
+                        .replacingOccurrences(of: "\"", with: "")
+                ).font(.system(size: 13))
+            }
+            }
 
-//            if !gameEvent.playerList.isEmpty {
-//                HStack{
-//                    Text("Players: ").fontWeight(.light).font(.system(size: 12))
-//                    Text(gameEvent.playerList.description).fontWeight(.light).font(.system(size: 12))}
-//            }
+            
             
 //            List(gameEvents.identified(by: \.time)) { (gameEvent : Binding<GameEvent>) in
 //                Toggle(isOn: gameEvent.isAttending) {
@@ -57,7 +62,11 @@ struct GameEventElement: View {
 //                }
 //            }
 
-            Button(action: {self.isAttending.toggle()})
+            Button(action: {
+                self.isAttending.toggle();
+//                viewModel.addPlayerToGameEvent(gameEvent)
+//                
+            })
             {
                 Image(self.isAttending == false ? "Join Game Button" : "Edit RSVP Button").resizable().aspectRatio(contentMode: .fit)
             }
@@ -98,8 +107,10 @@ struct GameEventElement: View {
 
 }
 
-struct GameEventElement_Previews: PreviewProvider {
+struct GameEventElement_Previews:
+    PreviewProvider {
     static var previews: some View {
+        
         VStack{
         Group {
 //            GameEventElement(gameEvent: gameEvents[0])

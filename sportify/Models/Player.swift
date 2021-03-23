@@ -27,20 +27,16 @@ struct Player: Hashable, Codable, Identifiable {
     //@ServerTimestamp var createdTime: Timestamp?
     //var availability: list of strings? TODO
     
+    enum CodingKeys: String, CodingKey {
+      case id
+      case name
+      case skillLevel
+      case gender
+    }
+    
     //profile picture
 //    private var imageName: String
 //    var image: Image {
 //        Image(imageName)
 //    }
 }
-//
-//private var db = Firestore.firestore()
-//
-//func addPlayer(player: Player) {
-//  do {
-//    let _ = try db.collection("Players").addDocument(from: tennisPlayers)
-//  }
-//  catch {
-//    print(error)
-//  }
-//}

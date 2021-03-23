@@ -21,9 +21,9 @@ struct GameEvent: Codable, Identifiable {
     var court: String //TODO -> convert to address type
     //TODO: need gender for game type?
     var gameType: String // singles, doubles, mixed doubles
-    // TODO ////////////// var playerLevel: String 
+    // TODO ////////////// var playerLevel: String
+    var difficultyLevel: String
     var players = [Player]()
-    
 
     //@State var isAttending: Bool
 //    @State var playerList = [String]()
@@ -34,5 +34,4 @@ struct GameEvent: Codable, Identifiable {
 //        self.gameType = gameType
 //    }
     
-
 }

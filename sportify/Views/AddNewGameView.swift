@@ -10,22 +10,30 @@ import SwiftUI
 struct AddNewGameView: View {
   @Environment(\.presentationMode) private var presentationMode 
   @StateObject var viewModel = GameEventViewModel()
-    var gameTypes = ["Singles", "Doubles", "Mixed Doubles"]
+    var gameTypes = ["Tennis Singles", "Tennis Doubles", "Tennis Mixed Doubles"]
+    var bpcCourts = ["Baby Point Club, Court 1", "Baby Point Club, Court 2"]
+    var difficultyLevel = ["Beginner", "Intermediate", "Advanced", "Expert", "Any"]
   
   var body: some View {
     NavigationView {
       Form {
-        Section(header: Text("Book")) {
-          TextField("Court", text: $viewModel.gameEvent.court)
-            Picker("Select game type: ", selection: $viewModel.gameEvent.gameType){
+        Section() {
+            Picker("Select court: ", selection: $viewModel.gameEvent.court){
+                ForEach(bpcCourts, id: \.self){
+                    Text($0)
+                }
+            }
+                Picker("Select game type: ", selection: $viewModel.gameEvent.gameType){
                 ForEach(gameTypes, id: \.self){
                     Text($0)
                 }
             }
-//          TextField("Game Type", text: $viewModel.gameEvent.gameType)
-//        TextField("Date", value: $viewModel.gameEvent.time, formatter: DateFormatter())
+            Picker("Select desired skill level of player(s): ", selection: $viewModel.gameEvent.difficultyLevel){
+            ForEach(difficultyLevel, id: \.self){
+                Text($0)
+            }
+        }
         DatePicker("Select date and time: ", selection: $viewModel.gameEvent.startTime, displayedComponents: [.date, .hourAndMinute])
-
         }
 
 
