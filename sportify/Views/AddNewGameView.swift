@@ -18,10 +18,12 @@ struct AddNewGameView: View {
     NavigationView {
       Form {
         Section() {
+            Section(header: Text("Select court: ")){
             Picker("Select court: ", selection: $viewModel.gameEvent.court){
                 ForEach(bpcCourts, id: \.self){
                     Text($0)
                 }
+            }
             }
                 Picker("Select game type: ", selection: $viewModel.gameEvent.gameType){
                 ForEach(gameTypes, id: \.self){
@@ -33,11 +35,13 @@ struct AddNewGameView: View {
                 Text($0)
             }
         }
-        DatePicker("Select date and time: ", selection: $viewModel.gameEvent.startTime, displayedComponents: [.date, .hourAndMinute])
+        DatePicker("Select start date and time: ", selection: $viewModel.gameEvent.startTime, displayedComponents: [.date, .hourAndMinute])
+//        DatePicker("Select end time: ", selection: $viewModel.gameEvent.endTime, displayedComponents: [ .hourAndMinute])
+
         }
 
 
-      }
+      }//.labelsHidden()
       .navigationBarTitle("New Game", displayMode: .inline)
       .navigationBarItems(
         leading:

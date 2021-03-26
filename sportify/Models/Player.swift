@@ -15,9 +15,7 @@ struct Player: Hashable, Codable, Identifiable {
 //struct Player: Hashable, Identifiable {
     
     @DocumentID var id: String?
-//    var id: String = UUID().uuidString
     
-//    let id = UUID()
     var name: String
     //var email: String
     var skillLevel: String

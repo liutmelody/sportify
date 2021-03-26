@@ -18,15 +18,12 @@ struct GameEvent: Codable, Identifiable {
 //    let id = UUID()
     @DocumentID var id: String?
     var startTime: Date //TODO: timestamp for consistency w Firestore
+    var endTime: Date
     var court: String //TODO -> convert to address type
     //TODO: need gender for game type?
     var gameType: String // singles, doubles, mixed doubles
-    // TODO ////////////// var playerLevel: String
     var difficultyLevel: String
     var players = [Player]()
-
-    //@State var isAttending: Bool
-//    @State var playerList = [String]()
     
 //    init(time: Date, court: String, gameType: String){
 //        self.time = time

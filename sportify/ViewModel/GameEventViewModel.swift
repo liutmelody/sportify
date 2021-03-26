@@ -15,6 +15,7 @@ class GameEventViewModel: ObservableObject {
       @Published var gameEvent: GameEvent
       @Published var gameEvents = [GameEvent]()
       @Published var modified = false
+
       
       // MARK: - Internal properties
       
@@ -22,7 +23,7 @@ class GameEventViewModel: ObservableObject {
       
       // MARK: - Constructors
       
-    init(gameEvent: GameEvent = GameEvent(startTime: Date(), court: "", gameType:"", difficultyLevel: "")) {
+    init(gameEvent: GameEvent = GameEvent(startTime: Date(), endTime: Date().addingTimeInterval(60 * 60), court: "", gameType:"", difficultyLevel: "")) {
         self.gameEvent = gameEvent
 
         self.$gameEvent
@@ -37,37 +38,57 @@ class GameEventViewModel: ObservableObject {
       
       private var db = Firestore.firestore()
       
-      func addGameEvent(_ gameEvent: GameEvent) {
+    func addGameEvent(_ gameEvent: GameEvent, test: Bool = false) {
         do {
+
+            let dbName = test ? "TestGameEvents": "GameEvents"
             //TODO: ideally, should be a  Player reference
             //eventually,  will have to change to UserDefaults
-          let _ = try db.collection("GameEvents").addDocument(from: gameEvent).updateData(["players":FieldValue.arrayUnion(["Melody"])
-            ])
-            
+            let uid = UUID().uuidString
+            let username = "Melody"
+            let _ = try db.collection(dbName)
+                .document(uid)
+                .setData(["id":uid,
+                          "difficultyLevel": gameEvent.difficultyLevel,
+                          "gameType": gameEvent.gameType,
+                          "players": [username],
+                          "startTime": gameEvent.startTime,
+                          "endTime": gameEvent.endTime
+                            ])
+//            from: gameEvent).updateData(["players":FieldValue.arrayUnion([username]), "id": uid])
         }
         catch {
           print(error)
         }
       }
     
-    func addPlayerToGameEvent(_ gameEvent: GameEvent) {
+    func togglePlayerToGameEvent(_ gameEvent: GameEvent, documentID: String, isAttending: Bool) {
 //        if let documentID = gameEvent.id {
+//        let id = documentID as? String ?? ""
+        if true {
       do {
-          //TODO: ideally, should be a  Player reference
-         try db.collection("GameEvents").document( "SdlowqaRHt5lWBF41guP").updateData(["players":FieldValue.arrayUnion(["Melody"])
-          ])
+//         try db.collection("GameEvents").document( documentID).updateData(["players": FieldValue.arrayUnion(["Melody"])
+        
+        if isAttending{
+            try db.collection("GameEvents").document("SdlowqaRHt5lWBF41guP").setData(["players" : ["Olivia", "Kennedy", "Melody"]], merge:true)
+//            try db.collection("GameEvents").whereField("id", isEqualTo: documentID).getDocuments().setData(["players" : ["Olivia", "Kennedy", "Melody"]], merge:true)
+        }
+        else{ //
+            try db.collection("GameEvents").document("SdlowqaRHt5lWBF41guP").setData(["players" : ["Olivia", "Kennedy"]], merge:true)
+        }
+
       }
-      catch {
-        print(error)
+      catch let error {
+        print("Error writing city to Firestore: \(error)")
       }
-//        }
+        }
     }
     
 
     
     func fetchData() {
 
-      db.collection("GameEvents").addSnapshotListener { (querySnapshot, error) in
+        db.collection("GameEvents").addSnapshotListener { (querySnapshot, error) in
         guard let documents = querySnapshot?.documents else {
           print("No documents found")
           return
@@ -76,17 +97,17 @@ class GameEventViewModel: ObservableObject {
         self.gameEvents = documents.map { queryDocumentSnapshot -> GameEvent in
           let data = queryDocumentSnapshot.data()
             guard let stamp = data["startTime"] as? Timestamp else{
-                return GameEvent(startTime: Date(), court: "", gameType:"", difficultyLevel: "")
+                return GameEvent(startTime: Date(), endTime: Date().addingTimeInterval(5 * 60), court: "", gameType:"", difficultyLevel: "")
             }
-          let startTime = stamp.dateValue() //data["startTime"] as? Date ?? Date()
+          let startTime = stamp.dateValue()
+          let endTime = startTime.addingTimeInterval(60 * 60)
           let court = data["court"] as? String ?? ""
           let gameType = data["gameType"] as? String ?? ""
           let difficultyLevel = data["difficultyLevel"] as? String ?? "Any"
-//            let players = data["players"] as? [Player] ?? [Player(name:"Players not found", skillLevel: "test", gender:"test")]
-            let playerName = data["players"] as? [String] ?? ["You"]
-            let players = [Player(name: String(describing: playerName), skillLevel: "test", gender:"test")]
+          let playerName = data["players"] as? [String] ?? ["You"]
+          let players = [Player(name: String(describing: playerName), skillLevel: "test", gender: "test")]
 
-            return GameEvent(id: .init(), startTime: startTime, court: court, gameType: gameType, difficultyLevel: difficultyLevel, players: players)
+            return GameEvent(id: .init(), startTime: startTime, endTime: endTime, court: court, gameType: gameType, difficultyLevel: difficultyLevel, players: players)
         }
       }
     }

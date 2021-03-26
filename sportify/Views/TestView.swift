@@ -40,6 +40,7 @@ struct TestView: View {
             MapAnnotation(coordinate: place.coordinate) {
                 ZStack{
                     Image(uiImage: #imageLiteral(resourceName: "MapAnnotation")).resizable().frame(width: 45, height: 58)
+                    Image(uiImage: #imageLiteral(resourceName: "TennisIcon")).resizable().frame(width: 28, height: 28)
                 }
             }
 

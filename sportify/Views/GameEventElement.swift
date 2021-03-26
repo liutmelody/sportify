@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-var tennisPlayers = [
-    Player(name: "Melody", skillLevel: "Beginner", gender: "F"),
-    Player(name: "Zaeem", skillLevel: "Intermediate", gender: "M")
-
-]
-//var instead of 'let' because gameEvents needs to be mutable
+//var tennisPlayers = [
+//    Player(name: "Melody", skillLevel: "Beginner", gender: "F"),
+//    Player(name: "Zaeem", skillLevel: "Intermediate", gender: "M")
+//
+//]
 //var gameEvents = [
 //    GameEvent(startTime: Timestamp(date: Date()), court: "Baby Point Club, Court 1",  gameType: "Singles", players: [tennisPlayers[0], tennisPlayers[1]]),
 //    GameEvent(startTime: Date(timeIntervalSinceReferenceDate: -129456789.0), court: "Baby Point Club, Court 3",  gameType: "Mixed Doubles"),
@@ -40,7 +39,6 @@ struct GameEventElement: View {
                 Text("You're going to this game!")//.padding().background(Color.green)
             }
             Text(gameEvent.startTime, style: .time).fontWeight(.bold).font(.system(size: 14))
-            Text(gameEvent.gameType).fontWeight(.bold).font(.system(size: 18))
             Text(gameEvent.court).fontWeight(.bold).foregroundColor(.gray).font(.system(size: 16))
             HStack{
                 Text("Players:").fontWeight(.bold).foregroundColor(.gray).font(.system(size: 13))
@@ -64,8 +62,7 @@ struct GameEventElement: View {
 
             Button(action: {
                 self.isAttending.toggle();
-//                viewModel.addPlayerToGameEvent(gameEvent)
-//                
+                viewModel.togglePlayerToGameEvent(gameEvent, documentID: gameEvent.id!, isAttending: self.isAttending)
             })
             {
                 Image(self.isAttending == false ? "Join Game Button" : "Edit RSVP Button").resizable().aspectRatio(contentMode: .fit)
