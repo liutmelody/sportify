@@ -12,7 +12,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Player: Hashable, Codable, Identifiable {
-//struct Player: Hashable, Identifiable {
     
     @DocumentID var id: String?
     
@@ -20,7 +19,7 @@ struct Player: Hashable, Codable, Identifiable {
     //var email: String
     var skillLevel: String
     //var neighbourhood: String //TODO
-    var gender: String //TODO
+    var gender: String 
     
     //@ServerTimestamp var createdTime: Timestamp?
     //var availability: list of strings? TODO

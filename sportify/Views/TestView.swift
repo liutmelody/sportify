@@ -39,11 +39,9 @@ struct TestView: View {
             Map(coordinateRegion: $region, annotationItems: courts) { place in
             MapAnnotation(coordinate: place.coordinate) {
                 ZStack{
-                    Image(uiImage: #imageLiteral(resourceName: "MapAnnotation")).resizable().frame(width: 45, height: 58)
-                    Image(uiImage: #imageLiteral(resourceName: "TennisIcon")).resizable().frame(width: 28, height: 28)
+                    Image(uiImage: #imageLiteral(resourceName: "Tennis Map Icon")).resizable().frame(width: 100, height: 58)
                 }
             }
-
         }.ignoresSafeArea(.all)
 
         GeometryReader { geometry in
@@ -52,7 +50,7 @@ struct TestView: View {
                 maxHeight: geometry.size.height * 0.8
             ) {
                 VStack{
-                    Text("1. Baby Point Tennis Courts")
+                    Text("Baby Point Tennis Courts")
                         .baselineOffset(10.0)
                         .fontWeight(.bold)
                         .font(.system(size: 20))
@@ -86,6 +84,13 @@ struct TestView: View {
         .sheet(isPresented: self.$showAddGameEvent, content: {
             AddNewGameView()
         })
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button("Press Me") {
+                    print("Pressed")
+                }
+            }
+        }
     }
         
 }

@@ -21,7 +21,7 @@ import SwiftUI
 struct GameEventElement: View {
     var gameEvent: GameEvent
     @ObservedObject var viewModel = GameEventViewModel()
-    @State var isAttending : Bool = false
+    @State var isAttending: Bool = false
     @State var showingPopup = false
 
 
@@ -35,10 +35,20 @@ struct GameEventElement: View {
 
         VStack (alignment: .leading, spacing: 4){
             
-            if self.isAttending {
-                Text("You're going to this game!")//.padding().background(Color.green)
+            if self.isAttending || viewModel.isUserAttending(players: gameEvent.players[0].name) {
+                ZStack {
+                    Text("You're going to this game!")
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("SportifyGreen"))
+                }
+
             }
-            Text(gameEvent.startTime, style: .time).fontWeight(.bold).font(.system(size: 14))
+            HStack{
+                Text(gameEvent.startTime, style: .time).fontWeight(.bold).font(.system(size: 14))
+                Text("-")
+                Text(gameEvent.endTime, style: .time).fontWeight(.bold).font(.system(size: 14))
+            }
+            Text(gameEvent.gameType).fontWeight(.bold).font(.system(size: 16))
             Text(gameEvent.court).fontWeight(.bold).foregroundColor(.gray).font(.system(size: 16))
             HStack{
                 Text("Players:").fontWeight(.bold).foregroundColor(.gray).font(.system(size: 13))
@@ -51,8 +61,6 @@ struct GameEventElement: View {
                 ).font(.system(size: 13))
             }
             }
-
-            
             
 //            List(gameEvents.identified(by: \.time)) { (gameEvent : Binding<GameEvent>) in
 //                Toggle(isOn: gameEvent.isAttending) {
@@ -62,10 +70,16 @@ struct GameEventElement: View {
 
             Button(action: {
                 self.isAttending.toggle();
-                viewModel.togglePlayerToGameEvent(gameEvent, documentID: gameEvent.id!, isAttending: self.isAttending)
+                viewModel.togglePlayerToGameEvent(gameEvent, documentID: gameEvent.id!, isAttending: self.isAttending);
             })
             {
-                Image(self.isAttending == false ? "Join Game Button" : "Edit RSVP Button").resizable().aspectRatio(contentMode: .fit)
+                if self.isAttending || viewModel.isUserAttending(players: gameEvent.players[0].name) {
+                    Image("Edit RSVP Button").resizable().aspectRatio(contentMode: .fit)
+                }
+                else{
+                Image("Join Game Button").resizable().aspectRatio(contentMode: .fit)
+                }
+//                Image(self.isAttending == false ? "Join Game Button" : "Edit RSVP Button").resizable().aspectRatio(contentMode: .fit)
             }
             //JoinGameButton(showing: $showingPopup, hideAll: hideAll)
 
@@ -74,7 +88,7 @@ struct GameEventElement: View {
         .frame(width: 350, height: 200)
         .background(Color(.white))
         .cornerRadius(10.0)
-        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.30), radius: 1).frame(width: 350, height: 200)
+        .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.30), radius: 1).frame(width: 350, height: 190)
 //        .edgesIgnoringSafeArea(.all).popup(isPresented: $showingPopup, type: .`default`, closeOnTap: false) {
 //                createPopup()}
     }
@@ -107,13 +121,6 @@ struct GameEventElement: View {
 struct GameEventElement_Previews:
     PreviewProvider {
     static var previews: some View {
-        
-        VStack{
-        Group {
-//            GameEventElement(gameEvent: gameEvents[0])
-//            GameEventElement(gameEvent: gameEvents[1])
-        }
-        }
-        .previewLayout(.fixed(width: 300, height: 70))
+        GameEventElementList()
     }
 }

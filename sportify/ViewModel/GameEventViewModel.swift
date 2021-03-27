@@ -48,33 +48,30 @@ class GameEventViewModel: ObservableObject {
             let username = "Melody"
             let _ = try db.collection(dbName)
                 .document(uid)
-                .setData(["id":uid,
+                .setData(["id": uid,
+                          "court": gameEvent.court,
                           "difficultyLevel": gameEvent.difficultyLevel,
                           "gameType": gameEvent.gameType,
                           "players": [username],
                           "startTime": gameEvent.startTime,
                           "endTime": gameEvent.endTime
                             ])
-//            from: gameEvent).updateData(["players":FieldValue.arrayUnion([username]), "id": uid])
         }
         catch {
           print(error)
         }
       }
     
-    func togglePlayerToGameEvent(_ gameEvent: GameEvent, documentID: String, isAttending: Bool) {
-//        if let documentID = gameEvent.id {
-//        let id = documentID as? String ?? ""
-        if true {
+    func togglePlayerToGameEvent(_ gameEvent: GameEvent, documentID: String, isAttending: Bool, test: Bool = false) {
+        let dbName = test ? "TestGameEvents": "GameEvents"
+
+        if let documentID = gameEvent.id {
       do {
-//         try db.collection("GameEvents").document( documentID).updateData(["players": FieldValue.arrayUnion(["Melody"])
-        
         if isAttending{
-            try db.collection("GameEvents").document("SdlowqaRHt5lWBF41guP").setData(["players" : ["Olivia", "Kennedy", "Melody"]], merge:true)
-//            try db.collection("GameEvents").whereField("id", isEqualTo: documentID).getDocuments().setData(["players" : ["Olivia", "Kennedy", "Melody"]], merge:true)
+            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayUnion(["Melody"])])
         }
-        else{ //
-            try db.collection("GameEvents").document("SdlowqaRHt5lWBF41guP").setData(["players" : ["Olivia", "Kennedy"]], merge:true)
+        else{
+            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayRemove(["Melody"])])
         }
 
       }
@@ -84,21 +81,35 @@ class GameEventViewModel: ObservableObject {
         }
     }
     
+    func isUserAttending(players: String) -> Bool {
+        let isAttending = players.contains("Melody") ? true : false
+//        for player in gameEvent.players{
+//            if player == "Melody"{
+//            isAttending = true
+//            }
+//        }
+        
+        return isAttending
+    }
+    
 
     
-    func fetchData() {
+    func fetchData(test: Bool = false) {
+        let dbName = test ? "TestGameEvents": "GameEvents"
 
-        db.collection("GameEvents").addSnapshotListener { (querySnapshot, error) in
+        db.collection(dbName).addSnapshotListener { (querySnapshot, error) in
         guard let documents = querySnapshot?.documents else {
           print("No documents found")
           return
         }
 
         self.gameEvents = documents.map { queryDocumentSnapshot -> GameEvent in
-          let data = queryDocumentSnapshot.data()
+            let data = queryDocumentSnapshot.data()
+
             guard let stamp = data["startTime"] as? Timestamp else{
                 return GameEvent(startTime: Date(), endTime: Date().addingTimeInterval(5 * 60), court: "", gameType:"", difficultyLevel: "")
             }
+          let id = data["id"] as? String ?? "Error"
           let startTime = stamp.dateValue()
           let endTime = startTime.addingTimeInterval(60 * 60)
           let court = data["court"] as? String ?? ""
@@ -107,7 +118,7 @@ class GameEventViewModel: ObservableObject {
           let playerName = data["players"] as? [String] ?? ["You"]
           let players = [Player(name: String(describing: playerName), skillLevel: "test", gender: "test")]
 
-            return GameEvent(id: .init(), startTime: startTime, endTime: endTime, court: court, gameType: gameType, difficultyLevel: difficultyLevel, players: players)
+            return GameEvent(id: id, startTime: startTime, endTime: endTime, court: court, gameType: gameType, difficultyLevel: difficultyLevel, players: players)
         }
       }
     }
