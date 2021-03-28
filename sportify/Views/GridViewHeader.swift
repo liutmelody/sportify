@@ -45,21 +45,21 @@ struct GridViewHeader : View {
 
                 Spacer()
 
-                Text("Thu Apr 1")
+                Text("Mon Mar 29")
                     .modifier(MagicStuff(activeIdx: $activeIdx, idx: 1))
                     .background(TextGeometry())
                     .onPreferenceChange(WidthPreferenceKey.self, perform: { self.w[1] = $0 })
 
                 Spacer()
 
-                Text("Fri Apr 2")
+                Text("Tue Mar 30")
                     .modifier(MagicStuff(activeIdx: $activeIdx, idx: 2))
                     .background(TextGeometry())
                     .onPreferenceChange(WidthPreferenceKey.self, perform: { self.w[2] = $0 })
 
                 Spacer()
 
-                Text("Sat Apr 3")
+                Text("Wed Mar 31")
                     .modifier(MagicStuff(activeIdx: $activeIdx, idx: 3))
                     .background(TextGeometry())
                     .onPreferenceChange(WidthPreferenceKey.self, perform: { self.w[3] = $0 })

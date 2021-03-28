@@ -15,8 +15,8 @@ class GameEventViewModel: ObservableObject {
       @Published var gameEvent: GameEvent
       @Published var gameEvents = [GameEvent]()
       @Published var modified = false
-
-      
+    public var username =  UserDefaults.standard.string(forKey: "username") as? String ?? "Melody"
+        
       // MARK: - Internal properties
       
       private var cancellables = Set<AnyCancellable>()
@@ -44,15 +44,15 @@ class GameEventViewModel: ObservableObject {
             let dbName = test ? "TestGameEvents": "GameEvents"
             //TODO: ideally, should be a  Player reference
             //eventually,  will have to change to UserDefaults
-            let uid = UUID().uuidString
-            let username = "Melody"
+            let uid = UUID().uuidString.replacingOccurrences(of: "-", with: "")
+//            let username = "Melody"
             let _ = try db.collection(dbName)
                 .document(uid)
                 .setData(["id": uid,
                           "court": gameEvent.court,
                           "difficultyLevel": gameEvent.difficultyLevel,
                           "gameType": gameEvent.gameType,
-                          "players": [username],
+                          "players": [self.username],
                           "startTime": gameEvent.startTime,
                           "endTime": gameEvent.endTime
                             ])
@@ -68,10 +68,10 @@ class GameEventViewModel: ObservableObject {
         if let documentID = gameEvent.id {
       do {
         if isAttending{
-            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayUnion(["Melody"])])
+            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayUnion([self.username])])
         }
         else{
-            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayRemove(["Melody"])])
+            try db.collection(dbName).document(documentID).updateData(["players": FieldValue.arrayRemove([self.username])])
         }
 
       }
@@ -82,13 +82,7 @@ class GameEventViewModel: ObservableObject {
     }
     
     func isUserAttending(players: String) -> Bool {
-        let isAttending = players.contains("Melody") ? true : false
-//        for player in gameEvent.players{
-//            if player == "Melody"{
-//            isAttending = true
-//            }
-//        }
-        
+        let isAttending = players.contains(self.username) ? true : false
         return isAttending
     }
     
@@ -97,7 +91,7 @@ class GameEventViewModel: ObservableObject {
     func fetchData(test: Bool = false) {
         let dbName = test ? "TestGameEvents": "GameEvents"
 
-        db.collection(dbName).addSnapshotListener { (querySnapshot, error) in
+        db.collection(dbName).order(by: "startTime").addSnapshotListener { (querySnapshot, error) in
         guard let documents = querySnapshot?.documents else {
           print("No documents found")
           return
@@ -115,7 +109,7 @@ class GameEventViewModel: ObservableObject {
           let court = data["court"] as? String ?? ""
           let gameType = data["gameType"] as? String ?? ""
           let difficultyLevel = data["difficultyLevel"] as? String ?? "Any"
-          let playerName = data["players"] as? [String] ?? ["You"]
+          let playerName = data["players"] as? [String] ?? [""]
           let players = [Player(name: String(describing: playerName), skillLevel: "test", gender: "test")]
 
             return GameEvent(id: id, startTime: startTime, endTime: endTime, court: court, gameType: gameType, difficultyLevel: difficultyLevel, players: players)

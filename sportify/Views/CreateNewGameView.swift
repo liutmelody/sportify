@@ -107,7 +107,7 @@ struct CreateNewGameView: View {
 //    .border(Color.gray)
 //}
 //}
-struct NeighbourhoodView_Previews: PreviewProvider {
+struct CreateNewGameView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewGameView()
     }

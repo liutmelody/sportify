@@ -10,6 +10,7 @@ import MapKit
 
 let courts = [
     TennisCourt(name: "Baby Point Club, Court 1", latitude: 43.65685680258352, longitude: -79.49430929323823),
+//    TennisCourt(name: "Lessard Park", latitude: 43.6537640769367, longitude: -79.49025048700769)
 ]
 
 struct AddGameEventButton: View {
@@ -70,9 +71,9 @@ struct TestView: View {
                             GameEventElement(gameEvent:  viewModel.gameEvents[index])
                           }
                         }
-                    .onAppear() {
-                        self.viewModel.fetchData()}
-                    }
+//                    .onAppear() {
+//                        self.viewModel.fetchData()}
+                    }.onAppear() {self.viewModel.fetchData()}
 
                 }
                 
@@ -84,14 +85,8 @@ struct TestView: View {
         .sheet(isPresented: self.$showAddGameEvent, content: {
             AddNewGameView()
         })
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button("Press Me") {
-                    print("Pressed")
-                }
-            }
-        }
     }
+
         
 }
 }
