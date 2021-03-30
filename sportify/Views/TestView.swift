@@ -69,6 +69,7 @@ struct TestView: View {
                           ForEach(viewModel.gameEvents.indices, id: \.self) { index in
 
                             GameEventElement(gameEvent:  viewModel.gameEvents[index])
+                            Spacer().frame(height: 20)
                           }
                         }
 //                    .onAppear() {

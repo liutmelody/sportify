@@ -74,6 +74,8 @@ struct AddNewGameView: View {
                 Text("Select a date and time for your game").font(.subheadline).foregroundColor(Color.init(UIColor.darkGray))
             DatePicker("Select start date and time: ", selection: $viewModel.gameEvent.startTime, in:Date()..., displayedComponents: [.date, .hourAndMinute]).datePickerStyle(GraphicalDatePickerStyle())
             }
+            Spacer().frame(height:9)
+
 //        DatePicker("Select end time: ", selection: $viewModel.gameEvent.endTime, displayedComponents: [ .hourAndMinute])
         }
 

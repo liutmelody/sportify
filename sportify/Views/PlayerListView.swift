@@ -30,7 +30,7 @@ struct PlayerListView: View {
             }
         }
       .navigationBarTitle("Players")
-      .onAppear() { // (3)
+      .onAppear() { 
         self.viewModel.fetchData()
       }
     }
