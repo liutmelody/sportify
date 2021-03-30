@@ -12,8 +12,6 @@ pod 'Firebase/Firestore'
 pod 'FirebaseFirestoreSwift','~> 7.0-beta'
 pod 'CodableFirebase'
 
-
-
   target 'sportifyTests' do
     inherit! :search_paths
     # Pods for testing

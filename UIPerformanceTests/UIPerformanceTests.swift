@@ -30,13 +30,45 @@ class UIPerformanceTests: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
+    
     func testLaunchPerformance() throws {
+        let app = XCUIApplication()
+        app.launch()
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
             measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
+                app.launch()
             }
         }
     }
+    
+    func testCalculateWithCPUMetric() {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.navigationBars.staticTexts["Get started"].exists)
+        measure(metrics: [XCTCPUMetric(application: app)]) {
+            
+            app.navigationBars["Get started"].tap()
+        }
+    }
+
+    func testCalculateWithMemoryMetric() {
+        let app = XCUIApplication()
+        app.launch()
+        measure(metrics: [XCTMemoryMetric(application: app)]) {
+//            app.buttons["Done"].tap()
+            app.navigationBars["Get started"].tap()
+        }
+    }
+    
+    func testCalculateWithStorageMetric() {
+        let app = XCUIApplication()
+        app.launch()
+        measure(metrics: [XCTStorageMetric(application: app)]) {
+            app.navigationBars["Get started"].tap()
+        }
+    }
+    
+    
+    
+    
 }

@@ -86,6 +86,7 @@ struct GameEventElement: View {
             
         }.padding(EdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15))
         .frame(width: 350, height: 200)
+        .border(Color.gray, width: 0.2)
         .background(Color(.white))
         .cornerRadius(10.0)
         .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.30), radius: 1).frame(width: 350, height: 190)
@@ -110,7 +111,7 @@ struct GameEventElement: View {
 
         }
         .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-        .frame(width: 370, height: 350)
+        .frame(width: 360, height: 350)
         .background(Color(.white))
         .cornerRadius(5.0)
         .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.20), radius: 5)
